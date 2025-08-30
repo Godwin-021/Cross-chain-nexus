@@ -3,177 +3,690 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omni - The Ultimate Multi-Chain Wallet Platform</title>
+    <title>CosmoChain - Multi-Blockchain Crypto Wallet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background: linear-gradient(to bottom, #000, #001f3f);
-            color: #fff;
-            font-family: Arial, sans-serif;
+        :root {
+            --primary: #6c42f5;
+            --primary-dark: #5a32e0;
+            --secondary: #42a5f5;
+            --dark: #0a0a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .stars {
+        
+        body {
+            background-color: #0a0a1a;
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(108, 66, 245, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(66, 165, 245, 0.1) 0%, transparent 20%);
+            position: relative;
+        }
+        
+        /* Space Background Effect */
+        .space-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://example.com/stars.png') repeat;
-            opacity: 0.5;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .earth {
+            position: fixed;
+            bottom: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #0077ff, #000033);
+            box-shadow: 0 0 100px rgba(0, 119, 255, 0.5);
             z-index: -1;
         }
+        
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
+        
+        /* Header & Navigation */
         header {
-            text-align: center;
-            padding: 50px 0;
+            background-color: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        header h1 {
-            font-size: 3em;
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+        }
+        
+        .logo i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(108, 66, 245, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--gray);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .demo-button {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .demo-button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .hero-image {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            display: block;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: rgba(10, 10, 30, 0.5);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            font-size: 1.5rem;
             margin-bottom: 10px;
         }
-        section {
-            margin: 40px 0;
+        
+        .step-content p {
+            color: var(--gray);
         }
-        section h2 {
-            font-size: 2em;
-            border-bottom: 2px solid #00bfff;
-            padding-bottom: 10px;
+        
+        /* Benefits Section */
+        .benefits {
+            padding: 100px 0;
+            background-color: rgba(10, 10, 30, 0.5);
         }
-        ul {
-            list-style-type: disc;
-            padding-left: 40px;
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
-        footer {
+        
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .benefit-card p {
+            color: var(--gray);
+        }
+        
+        /* Call to Action */
+        .cta {
+            padding: 100px 0;
             text-align: center;
-            padding: 20px;
-            font-size: 0.8em;
         }
-        a {
-            color: #00bfff;
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(10, 10, 20, 0.9);
+            padding: 50px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--gray);
             text-decoration: none;
+            transition: color 0.3s;
         }
-        a:hover {
-            text-decoration: underline;
+        
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .earth {
+                width: 400px;
+                height: 400px;
+                bottom: -100px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="stars"></div>
-    <div class="container">
-        <header>
-            <img src="https://example.com/omni-logo.png" alt="Omni Logo" width="300">
-            <h1>Welcome to Omni</h1>
-            <p>The Ultimate Hybrid Multi-Chain Wallet: Bridging Fiat and Crypto Worldwide</p>
-        </header>
+    <!-- Space Background -->
+    <div class="space-background" id="spaceBackground"></div>
+    <div class="earth"></div>
 
-        <section id="functionalities">
-            <h2>Key Functionalities</h2>
-            <p>Omni is a hybrid (custodial and non-custodial) multi-chain wallet that empowers users to manage, trade, and bridge assets across all blockchain networks with seamless integration of fiat currencies.</p>
-            <ul>
-                <li><strong>Multi-Chain Swaps and Bridging</strong>: Perform swaps between any network on the blockchain (e.g., JUP on Solana to UNI on Ethereum) using bridges like Celer cBridge (for high-speed, non-EVM support) and Li.Fi (for aggregating swaps across 20+ chains). This enables true interoperability, allowing users to bridge assets like stablecoins between Solana, Ethereum, Polygon, Cosmos, Polkadot, Avalanche, and more.<grok:render card_id="db299e" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">24</argument>
-</grok:render></li>
-                <li><strong>Fiat On-Ramps and Off-Ramps</strong>: Seamlessly convert between fiat currencies (e.g., USD, EUR) and cryptocurrencies using integrated gateways like MoonPay or Wyre. Deposit fiat via credit cards, bank transfers, or mobile payments, and withdraw crypto to fiat worldwide.<grok:render card_id="fa457f" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">9</argument>
-</grok:render><grok:render card_id="4784bb" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">10</argument>
-</grok:render></li>
-                <li><strong>AI-Driven Insights</strong>: Get personalized recommendations based on on-chain activity, market trends, and fiat signals (e.g., analyzing XAU/USD with RSI, MACD, SuperTrend). AI enhances trading decisions, suggesting optimal swaps and stablecoin yields.<grok:render card_id="cdac64" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">18</argument>
-</grok:render><grok:render card_id="3a3613" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">20</argument>
-</grok:render></li>
-                <li><strong>Hybrid Wallet Management</strong>: Choose custodial mode for ease (with recovery options) or non-custodial for full control. View fiat and crypto balances side-by-side, with portfolio tracking across chains.<grok:render card_id="282500" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">1</argument>
-</grok:render><grok:render card_id="08bb9b" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">2</argument>
-</grok:render></li>
-                <li><strong>Staking and Yield Farming</strong>: Stake assets in recommended protocols (e.g., Aave on Polygon) with AI-guided low-risk options, prioritizing stablecoins for 5-10% APY.</li>
-                <li><strong>Gamified Education and Community</strong>: Earn badges (e.g., 'Cross-Chain Pro') through tutorials on wallet setup, fiat transfers, and multi-chain swaps. Join Discord, X, or Telegram for support.</li>
-            </ul>
-        </section>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>CosmoChain</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#benefits">Benefits</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <button class="cta-button">Early Access</button>
+            </nav>
+        </div>
+    </header>
 
-        <section id="advantages">
-            <h2>Advantages of Omni</h2>
-            <p>Omni stands out in the 2025 crypto market by solving key pain points in multi-chain and fiat interactions, offering a secure, efficient, and user-friendly experience.</p>
-            <ul>
-                <li><strong>Global Accessibility</strong>: Supports 40+ fiat currencies in 160+ countries, making crypto accessible worldwide without complex setups.<grok:render card_id="0816b3" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">14</argument>
-</grok:render><grok:render card_id="124e0d" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">15</argument>
-</grok:render></li>
-                <li><strong>Cost-Effective Fees</strong>: Only 1% on swaps (covering gas/slippage), with no subscription fees—lower than many competitors (e.g., 1-4.5% on ramps).<grok:render card_id="b39f3f" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">11</argument>
-</grok:render></li>
-                <li><strong>Fast and Optimized Transactions</strong>: Uses high-speed bridges (Celer for <5s swaps) and aggregators (Li.Fi for best routes), reducing slippage and gas by up to 6.5%.<grok:render card_id="c1b293" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">26</argument>
-</grok:render></li>
-                <li><strong>Enhanced Security</strong>: Audited contracts, stress-tested chain-switching, and hybrid modes ensure protection against 2025's rising hacks ($1.7B lost in 2024).<grok:render card_id="ac6ff8" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">0</argument>
-</grok:render><grok:render card_id="ac3337" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">3</argument>
-</grok:render></li>
-                <li><strong>Interoperability</strong>: Bridges any network, enabling universal swaps and reducing the need for multiple wallets.<grok:render card_id="19859f" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">5</argument>
-</grok:render><grok:render card_id="9e78ad" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">6</argument>
-</grok:render></li>
-            </ul>
-        </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Explore the Universe of Crypto</h1>
+            <p>CosmoChain is an automated crypto wallet DApp that enables seamless swapping between blockchain networks, fiat on/off ramps, and AI-powered investment insights.</p>
+            <div class="hero-buttons">
+                <button class="cta-button">Get Started</button>
+                <button class="demo-button">Live Demo</button>
+            </div>
+            <div class="hero-image">
+                <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22900%22%20height%3D%22500%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20900%20500%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17c631c7c98%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A45pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17c631c7c98%22%3E%3Crect%20width%3D%22900%22%20height%3D%22500%22%20fill%3D%22%23333%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22330%22%20y%3D%22268%22%3ECosmoChain Interface%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="CosmoChain Interface">
+            </div>
+        </div>
+    </section>
 
-        <section id="benefits">
-            <h2>How Omni Benefits Users</h2>
-            <p>Omni empowers users worldwide by providing AI insights, fiat ramps, and multi-chain bridging, making crypto more accessible and profitable.</p>
-            <ul>
-                <li><strong>AI Insights for Smarter Decisions</strong>: AI analyzes on-chain data, market trends, and fiat signals (e.g., XAU/USD) to offer hybrid trading recommendations, helping users achieve 20-50% better returns through optimized swaps and stablecoin yields.<grok:render card_id="e93ce6" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">18</argument>
-</grok:render><grok:render card_id="000738" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">19</argument>
-</grok:render><grok:render card_id="76f722" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">21</argument>
-</grok:render><grok:render card_id="46285f" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">22</argument>
-</grok:render></li>
-                <li><strong>Fiat On-Ramps/Off-Ramps Worldwide</strong>: Easily convert USD/EUR to crypto (e.g., via MoonPay for instant card buys) or withdraw to fiat, bridging traditional finance with blockchain in 160+ countries. This simplifies onboarding and exits, promoting broader adoption.<grok:render card_id="9bda40" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">9</argument>
-</grok:render><grok:render card_id="f487e1" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">12</argument>
-</grok:render><grok:render card_id="aa49f4" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">13</argument>
-</grok:render><grok:render card_id="58dbd1" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">16</argument>
-</grok:render><grok:render card_id="f34bcb" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">17</argument>
-</grok:render></li>
-                <li><strong>Multi-Chain Bridging Benefits</strong>: Users can swap between any blockchain network (e.g., Solana to Ethereum) with fast, low-cost transactions, reducing silos and enabling efficient asset management in a fragmented ecosystem.<grok:render card_id="992a9b" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">0</argument>
-</grok:render><grok:render card_id="18326a" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">1</argument>
-</grok:render><grok:render card_id="52eb7c" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">7</argument>
-</grok:render><grok:render card_id="8a5017" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">24</argument>
-</grok:render><grok:render card_id="a1ec43" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">25</argument>
-</grok:render></li>
-                <li><strong>Overall User Empowerment</strong>: From beginners (with fiat ramps and tutorials) to pros (AI signals and multi-chain tools), Omni helps users navigate crypto securely, potentially increasing portfolio efficiency and adoption worldwide.<grok:render card_id="550b84" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">4</argument>
-</grok:render><grok:render card_id="6c3972" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">5</argument>
-</grok:render><grok:render card_id="38e1b0" card_type="citation_card" type="render_inline_citation">
-<argument name="citation_id">8</argument>
-</grok:render></li>
-            </ul>
-        </section>
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features</h2>
+                <p>CosmoChain brings together the best of DeFi, AI analytics, and seamless user experience</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Multi-Chain Swapping</h3>
+                    <p>Swap assets across multiple blockchain networks without needing to use multiple wallets or exchanges.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Fiat On/Off Ramps</h3>
+                    <p>Convert between fiat currencies and crypto assets seamlessly with support for multiple payment methods worldwide.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Profit Insights</h3>
+                    <p>Get automated analysis of profitable currencies based on market trends, liquidity, and historical data.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Enhanced Security</h3>
+                    <p>Non-custodial wallet with military-grade encryption and multi-factor authentication options.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Low Transaction Fees</h3>
+                    <p>Optimized routing to ensure you get the best rates with minimal transaction costs across networks.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>User-Friendly Interface</h3>
+                    <p>Intuitive design that makes complex crypto operations simple for both beginners and advanced users.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <footer>
-            <p>&copy; 2025 Omni. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/license">License & Disclaimer</a></p>
-        </footer>
-    </div>
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How CosmoChain Works</h2>
+                <p>Our platform simplifies the complex world of cross-chain transactions</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Connect Your Wallet</h3>
+                        <p>Link your existing wallets or create a new CosmoChain wallet with secure seed phrase recovery.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Select Assets & Networks</h3>
+                        <p>Choose the assets you want to swap and the blockchain networks you want to operate between.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Execute Cross-Chain Swap</h3>
+                        <p>Our smart contracts handle the complex bridge operations behind the scenes for a seamless experience.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Access Fiat Services</h3>
+                        <p>Use integrated payment processors to convert between crypto and traditional currencies.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Review AI Insights</h3>
+                        <p>Get personalized investment suggestions based on AI analysis of market conditions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>Advantages & Market Impact</h2>
+                <p>How CosmoChain transforms the crypto experience for users and the market</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>For Users</h3>
+                    <p>Simplified experience managing assets across multiple chains, reduced transaction costs, AI-powered investment guidance, and seamless fiat-to-crypto conversions.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>For the Market</h3>
+                    <p>Increased liquidity across blockchain networks, reduced fragmentation in DeFi, lower barriers to entry for new users, and enhanced interoperability standards.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Problems Solved</h3>
+                    <p>Eliminates complex bridge operations, reduces the need for multiple wallets/exchanges, solves liquidity fragmentation, and bridges the gap between traditional finance and crypto.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Revolutionize Cross-Chain Transactions?</h2>
+            <p>Join the CosmoChain ecosystem and experience the future of decentralized finance</p>
+            <button class="cta-button">Get Started Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>CosmoChain</h3>
+                    <p>The next generation automated crypto wallet DApp for seamless cross-chain transactions.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Platform</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#benefits">Benefits</a></li>
+                        <li><a href="#">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Whitepaper</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 CosmoChain. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create stars for the space background
+        function createStars() {
+            const spaceBackground = document.getElementById('spaceBackground');
+            const starsCount = 200;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                spaceBackground.appendChild(star);
+            }
+        }
+        
+        // Simple animation for feature cards on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            function checkScroll() {
+                featureCards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (cardPosition < screenPosition) {
+                        card.style.opacity = 1;
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+            
+            // Initialize opacity for animation
+            featureCards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            window.addEventListener('scroll', checkScroll);
+            checkScroll(); // Initial check
+        });
+    </script>
 </body>
 </html>
